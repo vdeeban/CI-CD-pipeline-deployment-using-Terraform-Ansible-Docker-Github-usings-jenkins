@@ -1,0 +1,20 @@
+#####################################...vdeeban...##########################################
+Install plugins in managepackges
+publish over ssh 
+#####################################################################################################
+
+Accessing the Git repository by using git clone: https://github.com/vdeeban/cicd-docker.git
+
+Jenkins script
+rsync -avh /var/lib/jenkins/workspace/cicd-docker-job/* root@172.34.81.132[Private_Ip of Ansible server]:/opt
+
+Ansible executable script
+cd /opt
+docker build -t $JOB_NAME:$BUILD_ID .
+docker tag $JOB_NAME:$BUILD_ID 100665/$JOB_NAME:$BUILD_ID
+docker tag $JOB_NAME:$BUILD_ID 100665/$JOB_NAME:latest
+docker push 100665/$JOB_NAME:$BUILD_ID
+docker push 100665/$JOB_NAME:latest
+docker image rmi $JOB_NAME:$BUILD_ID
+docker image rmi 100665/$JOB_NAME:$BUILD_ID
+docker image rmi 100665/$JOB_NAME:latest
