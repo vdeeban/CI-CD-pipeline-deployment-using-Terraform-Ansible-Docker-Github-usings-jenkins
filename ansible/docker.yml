@@ -1,0 +1,10 @@
+- hosts: Dock
+  tasks:
+    - name: stop container
+      shell: docker container stop my-container
+    - name: remove container
+      shell: docker container rm my-container
+    - name: remove image
+      shell: docker image rmi 100665/cicd-docker-job
+    - name: create container
+      shell: docker container run -itd --name my-container -p 8900:80 100665/cicd-docker-job
